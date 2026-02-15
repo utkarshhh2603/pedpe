@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buy Carbon Credits - PedPe</title>
+    <title>Buy Carbon Credits - PedPay</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -63,6 +63,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
         
         .logo-ped {
@@ -190,40 +191,49 @@
             transform: translateY(-2px);
         }
         
-        .marketplace-section {
-            padding: 80px 0;
-        }
-        
-        .marketplace-header {
+        .marketplace-hero {
+            background: linear-gradient(135deg, var(--pastel-green) 0%, var(--off-white) 100%);
+            padding: 80px 0 40px;
             text-align: center;
-            margin-bottom: 50px;
         }
         
-        .marketplace-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .marketplace-hero h1 {
+            font-size: 3rem;
             color: var(--darker-green);
+            margin-bottom: 15px;
         }
         
-        .marketplace-subtitle {
+        .marketplace-hero p {
             font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
             color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        .marketplace-filters {
+        .filters {
+            background: var(--white);
+            padding: 30px 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .filter-container {
             display: flex;
-            justify-content: center;
             gap: 15px;
-            margin-bottom: 40px;
             flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: var(--darker-green);
         }
         
         .filter-btn {
             padding: 10px 20px;
-            background: var(--pastel-green);
-            border: none;
+            border: 1px solid var(--primary-green);
+            background: transparent;
+            color: var(--darker-green);
             border-radius: 8px;
             cursor: pointer;
             transition: var(--transition);
@@ -235,10 +245,15 @@
             color: var(--darker-green);
         }
         
+        .plants-section {
+            padding: 60px 0;
+        }
+        
         .plants-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
+            margin-top: 40px;
         }
         
         .plant-card {
@@ -251,7 +266,7 @@
         
         .plant-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
         
         .plant-image {
@@ -265,39 +280,30 @@
         }
         
         .plant-name {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
             color: var(--darker-green);
+            margin-bottom: 10px;
         }
         
-        .plant-species {
+        .plant-species, .plant-age, .plant-location {
+            font-size: 0.95rem;
             color: var(--text-light);
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
         }
         
-        .plant-age {
-            color: var(--text-light);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-        
-        .plant-location {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
+        .plant-location i {
+            color: var(--primary-green);
+            margin-right: 5px;
         }
         
         .carbon-credits {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid var(--pastel-green);
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--pastel-green);
+            border-radius: 8px;
         }
         
         .credits-value {
@@ -306,55 +312,48 @@
         }
         
         .credits-price {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--darker-green);
+            color: var(--dark-green);
         }
         
         footer {
-            background-color: var(--darker-green);
+            background: var(--darker-green);
             color: var(--white);
             padding: 60px 0 20px;
-            margin-top: 60px;
         }
         
         .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 50px;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
             margin-bottom: 40px;
         }
         
-        .footer-column {
-            flex: 1;
-            min-width: 200px;
-        }
-        
         .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
             color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
         }
         
         .footer-column ul {
             list-style: none;
         }
         
-        .footer-column li {
-            margin-bottom: 10px;
+        .footer-column ul li {
+            margin-bottom: 12px;
         }
         
         .footer-column a {
             color: var(--white);
             text-decoration: none;
             transition: var(--transition);
-            display: inline-block;
+            opacity: 0.8;
         }
         
         .footer-column a:hover {
+            opacity: 1;
             color: var(--primary-green);
-            transform: translateX(5px);
         }
         
         .copyright {
@@ -365,25 +364,46 @@
             font-size: 0.9rem;
         }
         
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: var(--darker-green);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .cart-notification.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
             }
-            
-            nav ul {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .marketplace-hero h1 {
+                font-size: 2rem;
             }
             
             .plants-grid {
                 grid-template-columns: 1fr;
             }
             
-            .footer-content {
+            .filter-container {
                 flex-direction: column;
-                gap: 30px;
             }
         }
     </style>
@@ -395,121 +415,128 @@
                 <div class="logo-icon">
                     <i class="fas fa-seedling"></i>
                 </div>
-                <span class="logo-ped">Ped</span><span class="logo-pe">Pe</span>
+                <span class="logo-ped">Ped</span><span class="logo-pe">Pay</span>
             </a>
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Solutions</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#about">About</a></li>
                 </ul>
             </nav>
             <div class="header-buttons">
-                <a href="index.html" class="btn btn-home"><i class="fas fa-home"></i>BACK TO HOME</a>
+                <a href="index.html" class="btn btn-home"><i class="fas fa-home"></i> Home</a>
             </div>
         </div>
     </header>
 
-    <section class="marketplace-section">
+    <section class="marketplace-hero">
         <div class="container">
-            <div class="marketplace-header">
-                <h1 class="marketplace-title">Carbon Credit Marketplace</h1>
-                <p class="marketplace-subtitle">Browse and purchase verified carbon credits from sustainable projects around the world</p>
+            <h1>Carbon Credits Marketplace</h1>
+            <p>Browse and purchase verified carbon credits from registered plantations worldwide</p>
+        </div>
+    </section>
+
+    <section class="filters">
+        <div class="container">
+            <div class="filter-container">
+                <span class="filter-label">Filter by Type:</span>
+                <button class="filter-btn active" data-filter="all">All Plants</button>
+                <button class="filter-btn" data-filter="mangrove">Mangroves</button>
+                <button class="filter-btn" data-filter="forest">Forests</button>
+                <button class="filter-btn" data-filter="seagrass">Seagrass</button>
+                <button class="filter-btn" data-filter="other">Other</button>
             </div>
-            
-            <div class="marketplace-filters">
-                <button class="filter-btn active">All Plants</button>
-                <button class="filter-btn">Mangroves</button>
-                <button class="filter-btn">Teak</button>
-                <button class="filter-btn">Bamboo</button>
-                <button class="filter-btn">Other Species</button>
-            </div>
-            
+        </div>
+    </section>
+
+    <section class="plants-section">
+        <div class="container">
             <div class="plants-grid">
                 <!-- Plant 1 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Red Mangrove" class="plant-image">
+                <div class="plant-card" data-type="mangrove">
+                    <img src="market_plant.jpg" alt="Mangrove Forest" class="plant-image">
                     <div class="plant-details">
-                        <h3 class="plant-name">Red Mangrove</h3>
+                        <h3 class="plant-name">Mangrove Forest</h3>
                         <p class="plant-species"><strong>Species:</strong> Rhizophora mangle</p>
-                        <p class="plant-age"><strong>Age:</strong> 3 years</p>
-                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Sundarbans, Bangladesh</p>
+                        <p class="plant-age"><strong>Age:</strong> 5 years</p>
+                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Sundarbans, India</p>
                         <div class="carbon-credits">
-                            <span class="credits-value">12.5 Carbon Credits</span>
-                            <span class="credits-price">Rs187.50</span>
+                            <span class="credits-value">15.5 Carbon Credits</span>
+                            <span class="credits-price">₹232.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 2 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Black Mangrove" class="plant-image">
+                <div class="plant-card" data-type="seagrass">
+                    <img src="market_plant.jpg" alt="Seagrass Bed" class="plant-image">
                     <div class="plant-details">
-                        <h3 class="plant-name">Black Mangrove</h3>
-                        <p class="plant-species"><strong>Species:</strong> Avicennia germinans</p>
-                        <p class="plant-age"><strong>Age:</strong> 4 years</p>
-                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Florida Everglades, USA</p>
+                        <h3 class="plant-name">Seagrass Meadow</h3>
+                        <p class="plant-species"><strong>Species:</strong> Posidonia oceanica</p>
+                        <p class="plant-age"><strong>Age:</strong> 3 years</p>
+                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Mediterranean Sea</p>
                         <div class="carbon-credits">
-                            <span class="credits-value">15.2 Carbon Credits</span>
-                            <span class="credits-price">Rs228.00</span>
+                            <span class="credits-value">8.7 Carbon Credits</span>
+                            <span class="credits-price">₹130.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 3 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="White Mangrove" class="plant-image">
+                <div class="plant-card" data-type="forest">
+                    <img src="market_plant.jpg" alt="Bamboo Grove" class="plant-image">
                     <div class="plant-details">
-                        <h3 class="plant-name">White Mangrove</h3>
-                        <p class="plant-species"><strong>Species:</strong> Laguncularia racemosa</p>
-                        <p class="plant-age"><strong>Age:</strong> 2.5 years</p>
-                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Amazon Delta, Brazil</p>
+                        <h3 class="plant-name">Bamboo Grove</h3>
+                        <p class="plant-species"><strong>Species:</strong> Bambusa bambos</p>
+                        <p class="plant-age"><strong>Age:</strong> 2 years</p>
+                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Assam, India</p>
                         <div class="carbon-credits">
-                            <span class="credits-value">9.8 Carbon Credits</span>
-                            <span class="credits-price">Rs147.00</span>
+                            <span class="credits-value">12.3 Carbon Credits</span>
+                            <span class="credits-price">₹184.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 4 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Teak Plantation" class="plant-image">
+                <div class="plant-card" data-type="other">
+                    <img src="market_plant.jpg" alt="Neem Tree" class="plant-image">
                     <div class="plant-details">
-                        <h3 class="plant-name">Teak Plantation</h3>
-                        <p class="plant-species"><strong>Species:</strong> Tectona grandis</p>
-                        <p class="plant-age"><strong>Age:</strong> 5 years</p>
-                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Central Java, Indonesia</p>
+                        <h3 class="plant-name">Neem Plantation</h3>
+                        <p class="plant-species"><strong>Species:</strong> Azadirachta indica</p>
+                        <p class="plant-age"><strong>Age:</strong> 7 years</p>
+                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Gujarat, India</p>
                         <div class="carbon-credits">
-                            <span class="credits-value">22.3 Carbon Credits</span>
-                            <span class="credits-price">Rs334.50</span>
+                            <span class="credits-value">20.1 Carbon Credits</span>
+                            <span class="credits-price">₹301.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 5 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Bamboo Grove" class="plant-image">
+                <div class="plant-card" data-type="mangrove">
+                    <img src="market_plant.jpg" alt="Avicennia Marina" class="plant-image">
                     <div class="plant-details">
-                        <h3 class="plant-name">Bamboo Grove</h3>
-                        <p class="plant-species"><strong>Species:</strong> Bambusa vulgaris</p>
-                        <p class="plant-age"><strong>Age:</strong> 1.5 years</p>
-                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Chiang Mai, Thailand</p>
+                        <h3 class="plant-name">Grey Mangrove</h3>
+                        <p class="plant-species"><strong>Species:</strong> Avicennia marina</p>
+                        <p class="plant-age"><strong>Age:</strong> 4 years</p>
+                        <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Queensland, Australia</p>
                         <div class="carbon-credits">
-                            <span class="credits-value">7.6 Carbon Credits</span>
-                            <span class="credits-price">Rs114.00</span>
+                            <span class="credits-value">16.8 Carbon Credits</span>
+                            <span class="credits-price">₹252.00</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 6 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Coconut Palm" class="plant-image">
+                <div class="plant-card" data-type="other">
+                    <img src="market_plant.jpg" alt="Coconut Palm" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Coconut Palm</h3>
                         <p class="plant-species"><strong>Species:</strong> Cocos nucifera</p>
@@ -517,15 +544,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Kerala, India</p>
                         <div class="carbon-credits">
                             <span class="credits-value">11.2 Carbon Credits</span>
-                            <span class="credits-price">Rs168.00</span>
+                            <span class="credits-price">₹168.00</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 7 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Oak Tree" class="plant-image">
+                <div class="plant-card" data-type="forest">
+                    <img src="market_plant.jpg" alt="Oak Tree" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Oak Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Quercus robur</p>
@@ -533,15 +560,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Normandy, France</p>
                         <div class="carbon-credits">
                             <span class="credits-value">18.5 Carbon Credits</span>
-                            <span class="credits-price">Rs277.50</span>
+                            <span class="credits-price">₹277.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 8 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Pine Forest" class="plant-image">
+                <div class="plant-card" data-type="forest">
+                    <img src="market_plant.jpg" alt="Pine Forest" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Pine Forest</h3>
                         <p class="plant-species"><strong>Species:</strong> Pinus sylvestris</p>
@@ -549,15 +576,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> British Columbia, Canada</p>
                         <div class="carbon-credits">
                             <span class="credits-value">25.7 Carbon Credits</span>
-                            <span class="credits-price">Rs385.50</span>
+                            <span class="credits-price">₹385.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 9 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Eucalyptus" class="plant-image">
+                <div class="plant-card" data-type="other">
+                    <img src="market_plant.jpg" alt="Eucalyptus" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Eucalyptus</h3>
                         <p class="plant-species"><strong>Species:</strong> Eucalyptus globulus</p>
@@ -565,15 +592,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Victoria, Australia</p>
                         <div class="carbon-credits">
                             <span class="credits-value">14.3 Carbon Credits</span>
-                            <span class="credits-price">Rs214.50</span>
+                            <span class="credits-price">₹214.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 10 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Mahogany" class="plant-image">
+                <div class="plant-card" data-type="forest">
+                    <img src="market_plant.jpg" alt="Mahogany" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Mahogany</h3>
                         <p class="plant-species"><strong>Species:</strong> Swietenia macrophylla</p>
@@ -581,15 +608,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Belize, Central America</p>
                         <div class="carbon-credits">
                             <span class="credits-value">30.2 Carbon Credits</span>
-                            <span class="credits-price">Rs453.00</span>
+                            <span class="credits-price">₹453.00</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 11 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Willow Tree" class="plant-image">
+                <div class="plant-card" data-type="other">
+                    <img src="market_plant.jpg" alt="Willow Tree" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Willow Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Salix alba</p>
@@ -597,15 +624,15 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Norfolk, England</p>
                         <div class="carbon-credits">
                             <span class="credits-value">13.8 Carbon Credits</span>
-                            <span class="credits-price">Rs207.00</span>
+                            <span class="credits-price">₹207.00</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
                 </div>
                 
                 <!-- Plant 12 -->
-                <div class="plant-card">
-                    <img src="./market_plant.jpg" alt="Baobab Tree" class="plant-image">
+                <div class="plant-card" data-type="other">
+                    <img src="market_plant.jpg" alt="Baobab Tree" class="plant-image">
                     <div class="plant-details">
                         <h3 class="plant-name">Baobab Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Adansonia digitata</p>
@@ -613,7 +640,7 @@
                         <p class="plant-location"><i class="fas fa-map-marker-alt"></i> Madagascar</p>
                         <div class="carbon-credits">
                             <span class="credits-value">35.5 Carbon Credits</span>
-                            <span class="credits-price">Rs532.50</span>
+                            <span class="credits-price">₹532.50</span>
                         </div>
                         <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
                     </div>
@@ -621,11 +648,17 @@
             </div>
         </div>
     </section>
+
+    <div class="cart-notification" id="cartNotification">
+        <h3 style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Added to Cart!</h3>
+        <p id="cartItemName"></p>
+    </div>
+
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>PedPe</h3>
+                    <h3>PedPay</h3>
                     <ul>
                         <li><a href="#">About Us</a></li>
                         <li><a href="#">Our Mission</a></li>
@@ -636,7 +669,7 @@
                 <div class="footer-column">
                     <h3>Platform</h3>
                     <ul>
-                        <li><a href="#">For Farmers</a></li>
+                        <li><a href="#">For NGOs</a></li>
                         <li><a href="#">For Verifiers</a></li>
                         <li><a href="#">For Companies</a></li>
                         <li><a href="#">Pricing</a></li>
@@ -662,37 +695,49 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>Copyright © 2025 PedPe, Inc. All rights reserved.</p>
+                <p>Copyright © 2025 PedPay, Inc. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Filter functionality
             const filterButtons = document.querySelectorAll('.filter-btn');
+            const plantCards = document.querySelectorAll('.plant-card');
             
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Remove active class from all buttons
                     filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
                     this.classList.add('active');
                     
-                    // In a real implementation, you would filter the plant cards here
-                    // For this example, we'll just simulate filtering
-                    console.log(`Filtering by: Rs{this.textContent}`);
+                    const filterType = this.getAttribute('data-filter');
+                    
+                    plantCards.forEach(card => {
+                        if (filterType === 'all' || card.getAttribute('data-type') === filterType) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
             
-            // Buy button functionality
             const buyButtons = document.querySelectorAll('.btn-buy');
+            const cartNotification = document.getElementById('cartNotification');
+            const cartItemName = document.getElementById('cartItemName');
             
             buyButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const plantName = this.closest('.plant-card').querySelector('.plant-name').textContent;
-                    alert(`Added Rs{plantName} carbon credits to your cart!`);
+                    const credits = this.closest('.plant-card').querySelector('.credits-value').textContent;
+                    
+                    cartItemName.textContent = `${plantName} - ${credits}`;
+                    
+                    cartNotification.classList.add('show');
+                    
+                    setTimeout(() => {
+                        cartNotification.classList.remove('show');
+                    }, 3000);
                 });
             });
         });
