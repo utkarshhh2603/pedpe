@@ -254,6 +254,7 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 40px;
+            position: relative;
         }
         
         .plant-card {
@@ -261,7 +262,20 @@
             border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: var(--transition);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .plant-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .plant-card.hidden {
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            position: absolute;
+            left: -9999px;
         }
         
         .plant-card:hover {
@@ -317,6 +331,87 @@
             color: var(--dark-green);
         }
         
+        .quantity-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .quantity-row input {
+            width: 60px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            max-width: 95%;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 2001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+            padding: 0;
+            line-height: 1;
+        }
+        
+        .close-cart:hover {
+            color: var(--darker-green);
+        }
+        
+        .cart-sidebar-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .cart-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: 600; color: var(--darker-green); }
+        .cart-item-details { font-size: 0.9rem; color: var(--text-light); }
+        .cart-sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .cart-total { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; }
+        
         footer {
             background: var(--darker-green);
             color: var(--white);
@@ -364,6 +459,51 @@
             font-size: 0.9rem;
         }
         
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 24px;
+            color: var(--darker-green);
+            transition: var(--transition);
+        }
+        
+        .hamburger-btn:hover {
+            color: var(--primary-green);
+        }
+        
+        .hamburger-btn .fa-times {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-bars {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-times {
+            display: inline-block;
+        }
+        
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
         .cart-notification {
             position: fixed;
             top: 100px;
@@ -398,6 +538,50 @@
                 font-size: 2rem;
             }
             
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .hamburger-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-left: auto;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                max-width: 85%;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                z-index: 1001;
+                transition: right 0.3s ease;
+                padding-top: 80px;
+            }
+            
+            nav.menu-open {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 0 20px;
+            }
+            
+            nav ul li {
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 16px 0;
+            }
+            
             .plants-grid {
                 grid-template-columns: 1fr;
             }
@@ -417,7 +601,12 @@
                 </div>
                 <span class="logo-ped">Ped</span><span class="logo-pe">Pay</span>
             </a>
-            <nav>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="nav-overlay" id="navOverlay"></div>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#features">Features</a></li>
@@ -448,6 +637,17 @@
                 <button class="filter-btn" data-filter="seagrass">Seagrass</button>
                 <button class="filter-btn" data-filter="other">Other</button>
             </div>
+            <div class="filter-container" style="margin-top: 20px; flex-wrap: wrap; gap: 10px;">
+                <input type="text" id="searchInput" placeholder="Search by species or location..." style="padding: 10px 16px; border: 1px solid var(--primary-green); border-radius: 8px; min-width: 200px; font-size: 0.95rem;">
+                <select id="sortSelect" style="padding: 10px 16px; border: 1px solid var(--primary-green); border-radius: 8px; font-weight: 500; color: var(--darker-green); cursor: pointer;">
+                    <option value="default">Sort by</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="age">Age: Oldest First</option>
+                    <option value="credits">Credits: Highest First</option>
+                </select>
+                <a href="#" class="btn btn-primary" id="cartBtn" style="margin-left: auto;"><i class="fas fa-shopping-cart"></i> Cart <span id="cartCount" style="background: var(--darker-green); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.85rem;">0</span></a>
+            </div>
         </div>
     </section>
 
@@ -455,8 +655,8 @@
         <div class="container">
             <div class="plants-grid">
                 <!-- Plant 1 -->
-                <div class="plant-card" data-type="mangrove">
-                    <img src="market_plant.jpg" alt="Mangrove Forest" class="plant-image">
+                <div class="plant-card visible" data-type="mangrove" data-species="Rhizophora mangle" data-location="Sundarbans India" data-price="232.50" data-credits="15.5" data-age="5">
+                    <img src="https://images.unsplash.com/photo-1589593300743-1d449c877e8c?w=400&q=80" alt="Mangrove Forest" class="plant-image" onerror="this.src='https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80'">
                     <div class="plant-details">
                         <h3 class="plant-name">Mangrove Forest</h3>
                         <p class="plant-species"><strong>Species:</strong> Rhizophora mangle</p>
@@ -466,13 +666,16 @@
                             <span class="credits-value">15.5 Carbon Credits</span>
                             <span class="credits-price">₹232.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 2 -->
-                <div class="plant-card" data-type="seagrass">
-                    <img src="market_plant.jpg" alt="Seagrass Bed" class="plant-image">
+                <div class="plant-card visible" data-type="seagrass" data-species="Posidonia oceanica" data-location="Mediterranean Sea" data-price="130.50" data-credits="8.7" data-age="3">
+                    <img src="https://images.unsplash.com/photo-1578057442682-6ed3155cd5f4?w=400&q=80" alt="Seagrass Meadow underwater" class="plant-image" onerror="this.src='https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80'">
                     <div class="plant-details">
                         <h3 class="plant-name">Seagrass Meadow</h3>
                         <p class="plant-species"><strong>Species:</strong> Posidonia oceanica</p>
@@ -482,13 +685,16 @@
                             <span class="credits-value">8.7 Carbon Credits</span>
                             <span class="credits-price">₹130.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 3 -->
-                <div class="plant-card" data-type="forest">
-                    <img src="market_plant.jpg" alt="Bamboo Grove" class="plant-image">
+                <div class="plant-card visible" data-type="forest" data-species="Bambusa bambos" data-location="Assam India" data-price="184.50" data-credits="12.3" data-age="2">
+                    <img src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=400&q=80" alt="Bamboo Grove" class="plant-image" onerror="this.src='https://picsum.photos/seed/bamboo1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Bamboo Grove</h3>
                         <p class="plant-species"><strong>Species:</strong> Bambusa bambos</p>
@@ -498,13 +704,16 @@
                             <span class="credits-value">12.3 Carbon Credits</span>
                             <span class="credits-price">₹184.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 4 -->
-                <div class="plant-card" data-type="other">
-                    <img src="market_plant.jpg" alt="Neem Tree" class="plant-image">
+                <div class="plant-card visible" data-type="other" data-species="Azadirachta indica" data-location="Gujarat India" data-price="301.50" data-credits="20.1" data-age="7">
+                    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=400&q=80" alt="Neem Tree" class="plant-image" onerror="this.src='https://picsum.photos/seed/neem1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Neem Plantation</h3>
                         <p class="plant-species"><strong>Species:</strong> Azadirachta indica</p>
@@ -514,13 +723,16 @@
                             <span class="credits-value">20.1 Carbon Credits</span>
                             <span class="credits-price">₹301.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 5 -->
-                <div class="plant-card" data-type="mangrove">
-                    <img src="market_plant.jpg" alt="Avicennia Marina" class="plant-image">
+                <div class="plant-card visible" data-type="mangrove" data-species="Avicennia marina" data-location="Queensland Australia" data-price="252" data-credits="16.8" data-age="4">
+                    <img src="https://images.unsplash.com/photo-1589593300743-1d449c877e8c?w=400&q=80" alt="Grey Mangrove trees" class="plant-image" onerror="this.src='https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80'">
                     <div class="plant-details">
                         <h3 class="plant-name">Grey Mangrove</h3>
                         <p class="plant-species"><strong>Species:</strong> Avicennia marina</p>
@@ -530,13 +742,16 @@
                             <span class="credits-value">16.8 Carbon Credits</span>
                             <span class="credits-price">₹252.00</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 6 -->
-                <div class="plant-card" data-type="other">
-                    <img src="market_plant.jpg" alt="Coconut Palm" class="plant-image">
+                <div class="plant-card visible" data-type="other" data-species="Cocos nucifera" data-location="Kerala India" data-price="168" data-credits="11.2" data-age="4">
+                    <img src="https://images.unsplash.com/photo-1579762712836-78674b17d410?w=400&q=80" alt="Coconut Palm" class="plant-image" onerror="this.src='https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80'">
                     <div class="plant-details">
                         <h3 class="plant-name">Coconut Palm</h3>
                         <p class="plant-species"><strong>Species:</strong> Cocos nucifera</p>
@@ -546,13 +761,16 @@
                             <span class="credits-value">11.2 Carbon Credits</span>
                             <span class="credits-price">₹168.00</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 7 -->
-                <div class="plant-card" data-type="forest">
-                    <img src="market_plant.jpg" alt="Oak Tree" class="plant-image">
+                <div class="plant-card visible" data-type="forest" data-species="Quercus robur" data-location="Normandy France" data-price="277.50" data-credits="18.5" data-age="6">
+                    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=400&q=80" alt="Oak Tree" class="plant-image" onerror="this.src='https://picsum.photos/seed/oak1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Oak Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Quercus robur</p>
@@ -562,13 +780,16 @@
                             <span class="credits-value">18.5 Carbon Credits</span>
                             <span class="credits-price">₹277.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 8 -->
-                <div class="plant-card" data-type="forest">
-                    <img src="market_plant.jpg" alt="Pine Forest" class="plant-image">
+                <div class="plant-card visible" data-type="forest" data-species="Pinus sylvestris" data-location="British Columbia Canada" data-price="385.50" data-credits="25.7" data-age="7">
+                    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&q=80" alt="Pine Forest" class="plant-image" onerror="this.src='https://picsum.photos/seed/pine1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Pine Forest</h3>
                         <p class="plant-species"><strong>Species:</strong> Pinus sylvestris</p>
@@ -578,13 +799,16 @@
                             <span class="credits-value">25.7 Carbon Credits</span>
                             <span class="credits-price">₹385.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 9 -->
-                <div class="plant-card" data-type="other">
-                    <img src="market_plant.jpg" alt="Eucalyptus" class="plant-image">
+                <div class="plant-card visible" data-type="other" data-species="Eucalyptus globulus" data-location="Victoria Australia" data-price="214.50" data-credits="14.3" data-age="3">
+                    <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=400&q=80" alt="Eucalyptus" class="plant-image" onerror="this.src='https://picsum.photos/seed/eucalyptus1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Eucalyptus</h3>
                         <p class="plant-species"><strong>Species:</strong> Eucalyptus globulus</p>
@@ -594,13 +818,16 @@
                             <span class="credits-value">14.3 Carbon Credits</span>
                             <span class="credits-price">₹214.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 10 -->
-                <div class="plant-card" data-type="forest">
-                    <img src="market_plant.jpg" alt="Mahogany" class="plant-image">
+                <div class="plant-card visible" data-type="forest" data-species="Swietenia macrophylla" data-location="Belize Central America" data-price="453" data-credits="30.2" data-age="8">
+                    <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80" alt="Mahogany" class="plant-image" onerror="this.src='https://picsum.photos/seed/mahogany1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Mahogany</h3>
                         <p class="plant-species"><strong>Species:</strong> Swietenia macrophylla</p>
@@ -610,13 +837,16 @@
                             <span class="credits-value">30.2 Carbon Credits</span>
                             <span class="credits-price">₹453.00</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 11 -->
-                <div class="plant-card" data-type="other">
-                    <img src="market_plant.jpg" alt="Willow Tree" class="plant-image">
+                <div class="plant-card visible" data-type="other" data-species="Salix alba" data-location="Norfolk England" data-price="207" data-credits="13.8" data-age="4">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=400&q=80" alt="Willow Tree" class="plant-image" onerror="this.src='https://picsum.photos/seed/willow1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Willow Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Salix alba</p>
@@ -626,13 +856,16 @@
                             <span class="credits-value">13.8 Carbon Credits</span>
                             <span class="credits-price">₹207.00</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Plant 12 -->
-                <div class="plant-card" data-type="other">
-                    <img src="market_plant.jpg" alt="Baobab Tree" class="plant-image">
+                <div class="plant-card visible" data-type="other" data-species="Adansonia digitata" data-location="Madagascar" data-price="532.50" data-credits="35.5" data-age="10">
+                    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=400&q=80" alt="Baobab Tree" class="plant-image" onerror="this.src='https://picsum.photos/seed/baobab1/400/300'">
                     <div class="plant-details">
                         <h3 class="plant-name">Baobab Tree</h3>
                         <p class="plant-species"><strong>Species:</strong> Adansonia digitata</p>
@@ -642,17 +875,30 @@
                             <span class="credits-value">35.5 Carbon Credits</span>
                             <span class="credits-price">₹532.50</span>
                         </div>
-                        <button class="btn btn-buy" style="width: 100%; margin-top: 15px;"><i class="fas fa-shopping-cart"></i> Buy Credits</button>
+                        <div class="quantity-row">
+                            <input type="number" min="1" value="1" class="qty-input" aria-label="Quantity">
+                            <button class="btn btn-buy add-to-cart-btn" style="flex: 1;"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="cart-notification" id="cartNotification">
-        <h3 style="margin-bottom: 10px;"><i class="fas fa-check-circle"></i> Added to Cart!</h3>
-        <p id="cartItemName"></p>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-sidebar-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="closeCart" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-sidebar-body" id="cartBody">
+            <p id="cartEmpty" style="color: var(--text-light);">Your cart is empty.</p>
+        </div>
+        <div class="cart-sidebar-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">Total: <span id="cartTotal">₹0</span></div>
+            <button class="btn btn-primary" id="checkoutBtn" style="width: 100%;"><i class="fas fa-credit-card"></i> Proceed to Payment</button>
+        </div>
     </div>
+    <div class="nav-overlay" id="cartOverlay" style="display: none; z-index: 2000;"></div>
 
     <footer>
         <div class="container">
@@ -660,19 +906,15 @@
                 <div class="footer-column">
                     <h3>PedPay</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Platform</h3>
                     <ul>
-                        <li><a href="#">For NGOs</a></li>
-                        <li><a href="#">For Verifiers</a></li>
-                        <li><a href="#">For Companies</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="plant.html">Register Plantation</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -700,46 +942,203 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabaseClient.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let cart = [];
+            const plantsGrid = document.querySelector('.plants-grid');
+            const plantCards = Array.from(document.querySelectorAll('.plant-card'));
+            
+            function updateVisibility() {
+                const filterType = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+                const searchVal = (document.getElementById('searchInput').value || '').toLowerCase();
+                plantCards.forEach(card => {
+                    const typeMatch = filterType === 'all' || card.getAttribute('data-type') === filterType;
+                    const species = (card.getAttribute('data-species') || '').toLowerCase();
+                    const location = (card.getAttribute('data-location') || '').toLowerCase();
+                    const searchMatch = !searchVal || species.includes(searchVal) || location.includes(searchVal) || card.querySelector('.plant-name')?.textContent?.toLowerCase().includes(searchVal);
+                    const show = typeMatch && searchMatch;
+                    card.classList.toggle('visible', show);
+                    card.classList.toggle('hidden', !show);
+                });
+            }
+            
+            function sortCards() {
+                const sortVal = document.getElementById('sortSelect').value;
+                if (sortVal === 'default') return;
+                const sorted = [...plantCards].sort((a, b) => {
+                    const priceA = parseFloat(a.getAttribute('data-price'));
+                    const priceB = parseFloat(b.getAttribute('data-price'));
+                    const creditsA = parseFloat(a.getAttribute('data-credits'));
+                    const creditsB = parseFloat(b.getAttribute('data-credits'));
+                    const ageA = parseInt(a.getAttribute('data-age'));
+                    const ageB = parseInt(b.getAttribute('data-age'));
+                    if (sortVal === 'price-low') return priceA - priceB;
+                    if (sortVal === 'price-high') return priceB - priceA;
+                    if (sortVal === 'age') return ageB - ageA;
+                    if (sortVal === 'credits') return creditsB - creditsA;
+                    return 0;
+                });
+                sorted.forEach(card => plantsGrid.appendChild(card));
+            }
+            
             const filterButtons = document.querySelectorAll('.filter-btn');
-            const plantCards = document.querySelectorAll('.plant-card');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    const filterType = this.getAttribute('data-filter');
-                    
-                    plantCards.forEach(card => {
-                        if (filterType === 'all' || card.getAttribute('data-type') === filterType) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
+                    updateVisibility();
+                });
+            });
+            
+            document.getElementById('searchInput').addEventListener('input', updateVisibility);
+            document.getElementById('sortSelect').addEventListener('change', () => { updateVisibility(); sortCards(); });
+            
+            function renderCart() {
+                const cartBody = document.getElementById('cartBody');
+                const cartEmpty = document.getElementById('cartEmpty');
+                const cartFooter = document.getElementById('cartFooter');
+                const cartCount = document.getElementById('cartCount');
+                const cartTotal = document.getElementById('cartTotal');
+                if (cart.length === 0) {
+                    cartEmpty.style.display = 'block';
+                    cartFooter.style.display = 'none';
+                    cartBody.querySelectorAll('.cart-item').forEach(el => el.remove());
+                } else {
+                    cartEmpty.style.display = 'none';
+                    cartFooter.style.display = 'block';
+                    cartBody.querySelectorAll('.cart-item').forEach(el => el.remove());
+                    let total = 0;
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.qty;
+                        total += itemTotal;
+                        const div = document.createElement('div');
+                        div.className = 'cart-item';
+                        div.innerHTML = `<div class="cart-item-info"><div class="cart-item-name">${item.name}</div><div class="cart-item-details">${item.credits} credits × ${item.qty}</div></div><div>₹${itemTotal.toFixed(2)}</div>`;
+                        cartBody.appendChild(div);
                     });
+                    cartTotal.textContent = `₹${total.toFixed(2)}`;
+                }
+                cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
+            }
+            
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const card = this.closest('.plant-card');
+                    const name = card.querySelector('.plant-name').textContent;
+                    const price = parseFloat(card.getAttribute('data-price'));
+                    const credits = card.querySelector('.credits-value').textContent;
+                    const qty = parseInt(card.querySelector('.qty-input').value) || 1;
+                    const existing = cart.find(i => i.name === name);
+                    if (existing) existing.qty += qty;
+                    else cart.push({ name, price, credits, qty });
+                    renderCart();
                 });
             });
             
-            const buyButtons = document.querySelectorAll('.btn-buy');
-            const cartNotification = document.getElementById('cartNotification');
-            const cartItemName = document.getElementById('cartItemName');
-            
-            buyButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const plantName = this.closest('.plant-card').querySelector('.plant-name').textContent;
-                    const credits = this.closest('.plant-card').querySelector('.credits-value').textContent;
-                    
-                    cartItemName.textContent = `${plantName} - ${credits}`;
-                    
-                    cartNotification.classList.add('show');
-                    
-                    setTimeout(() => {
-                        cartNotification.classList.remove('show');
-                    }, 3000);
-                });
+            document.getElementById('cartBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('cartSidebar').classList.add('open');
+                document.getElementById('cartOverlay').style.display = 'block';
             });
+            document.getElementById('closeCart').addEventListener('click', () => {
+                document.getElementById('cartSidebar').classList.remove('open');
+                document.getElementById('cartOverlay').style.display = 'none';
+            });
+            document.getElementById('cartOverlay').addEventListener('click', () => {
+                document.getElementById('cartSidebar').classList.remove('open');
+                document.getElementById('cartOverlay').style.display = 'none';
+            });
+            
+            document.getElementById('checkoutBtn').addEventListener('click', async function() {
+                if (cart.length === 0) { alert('Your cart is empty.'); return; }
+                const total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+                const options = {
+                    key: 'rzp_test_xxx',
+                    amount: Math.round(total * 100),
+                    currency: 'INR',
+                    name: 'PedPay',
+                    description: 'Carbon Credits Purchase',
+                    handler: async function (res) {
+                        alert('Payment successful! Saving order...');
+
+                        try {
+                            const sb = window.getSupabaseClient();
+                            const user = await window.getSupabaseUser();
+                            if (!user) {
+                                console.warn('User not logged in; skipping order save.');
+                            } else {
+                                const { data: order, error: orderErr } = await sb
+                                    .from('orders')
+                                    .insert({
+                                        user_id: user.id,
+                                        total,
+                                        currency: 'INR',
+                                        status: 'paid',
+                                        payment_provider: 'razorpay',
+                                        payment_id: res.razorpay_payment_id
+                                    })
+                                    .select()
+                                    .single();
+
+                                if (orderErr) throw orderErr;
+
+                                const itemsPayload = cart.map(item => ({
+                                    order_id: order.id,
+                                    listing_name: item.name,
+                                    qty: item.qty,
+                                    unit_price: item.price,
+                                    credits_text: item.credits
+                                }));
+
+                                const { error: itemsErr } = await sb.from('order_items').insert(itemsPayload);
+                                if (itemsErr) throw itemsErr;
+                            }
+                        } catch (e) {
+                            console.warn('Failed to save order to Supabase (demo fallback):', e.message);
+                        }
+
+                        cart = [];
+                        renderCart();
+                        document.getElementById('cartSidebar').classList.remove('open');
+                        document.getElementById('cartOverlay').style.display = 'none';
+                        window.location.href = 'dashboard.html';
+                    }
+                };
+                if (typeof Razorpay === 'undefined') { alert('Payment gateway loading. Try again.'); return; }
+                const rzp = new Razorpay(options);
+                rzp.on('payment.failed', () => alert('Payment failed. Please try again.'));
+                rzp.open();
+            });
+            
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mainNav = document.getElementById('mainNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const navLinks = mainNav.querySelectorAll('a');
+            
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('menu-open');
+                mainNav.classList.remove('menu-open');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            hamburgerBtn.addEventListener('click', function() {
+                if (mainNav.classList.contains('menu-open')) {
+                    closeMobileMenu();
+                } else {
+                    hamburgerBtn.classList.add('menu-open');
+                    mainNav.classList.add('menu-open');
+                    navOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
+            navOverlay.addEventListener('click', closeMobileMenu);
+            navLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
         });
     </script>
 </body>

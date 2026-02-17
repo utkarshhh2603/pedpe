@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - PedPay</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        :root {
+            --primary-green: #81f18e; --dark-green: #2e7d32; --darker-green: #1b5e20;
+            --pastel-green: #e8fce9; --white: #ffffff; --off-white: #f9fff9;
+            --light-gray: #f5f5f5; --text-dark: #333; --text-light: #555;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.08); --transition: all 0.3s ease;
+        }
+        body { color: var(--text-dark); line-height: 1.6; background: var(--off-white); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; }
+        .logo-ped { color: var(--primary-green); } .logo-pe { color: var(--darker-green); }
+        .logo-icon { background: var(--primary-green); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--darker-green); }
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav a { text-decoration: none; color: var(--text-dark); font-weight: 500; }
+        nav a:hover { color: var(--darker-green); }
+        .btn { padding: 12px 24px; border-radius: 8px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; }
+        .btn-home { background: var(--darker-green); color: white; }
+        .btn-home:hover { background: var(--dark-green); }
+        .about-hero { background: linear-gradient(135deg, var(--pastel-green) 0%, var(--off-white) 100%); padding: 80px 0 60px; text-align: center; }
+        .about-hero h1 { font-size: 2.5rem; color: var(--darker-green); margin-bottom: 15px; }
+        .about-hero p { font-size: 1.2rem; color: var(--text-light); max-width: 600px; margin: 0 auto; }
+        .about-section { padding: 60px 0; background: var(--white); margin-bottom: 20px; }
+        .about-section:nth-child(even) { background: var(--off-white); }
+        .about-section h2 { color: var(--darker-green); margin-bottom: 20px; font-size: 1.8rem; }
+        .about-section p { color: var(--text-light); margin-bottom: 15px; }
+        footer { background: var(--darker-green); color: var(--white); padding: 40px 0 20px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 20px; }
+        .footer-column h3 { color: var(--primary-green); margin-bottom: 15px; }
+        .footer-column ul { list-style: none; }
+        .footer-column a { color: var(--white); text-decoration: none; opacity: 0.9; }
+        .footer-column a:hover { opacity: 1; color: var(--primary-green); }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: #a5d6a7; font-size: 0.9rem; }
+        @media (max-width: 768px) { nav ul { gap: 15px; } .about-hero h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                <span class="logo-ped">Ped</span><span class="logo-pe">Pay</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="marketplace.html">Marketplace</a></li>
+                    <li><a href="plant.html">Register Plantation</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="index.html" class="btn btn-home"><i class="fas fa-home"></i> Home</a>
+        </div>
+    </header>
+    <section class="about-hero">
+        <div class="container">
+            <h1>About PedPay</h1>
+            <p>Empowering sustainable action through verified carbon credits</p>
+        </div>
+    </section>
+    <section class="about-section" id="mission">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <p>PedPay is committed to combating climate change by creating a transparent, accessible marketplace for carbon credits. We connect plantation owners, environmental organizations, and businesses to accelerate the transition to a carbon-neutral future.</p>
+        </div>
+    </section>
+    <section class="about-section" id="ngos">
+        <div class="container">
+            <h2>For NGOs</h2>
+            <p>Register your reforestation and conservation projects. Get verified carbon credits for your environmental work and access funding from organizations committed to sustainability.</p>
+        </div>
+    </section>
+    <section class="about-section" id="verifiers">
+        <div class="container">
+            <h2>For Verifiers</h2>
+            <p>Join our network of accredited verifiers. Use satellite imagery and field verification to validate plantations and issue certified carbon credits.</p>
+        </div>
+    </section>
+    <section class="about-section" id="companies">
+        <div class="container">
+            <h2>For Companies</h2>
+            <p>Offset your carbon footprint by purchasing verified credits. Demonstrate your commitment to sustainability with transparent, traceable carbon credits.</p>
+        </div>
+    </section>
+    <section class="about-section" id="careers">
+        <div class="container">
+            <h2>Careers</h2>
+            <p>Join our team! We're always looking for passionate individuals committed to environmental impact. Check our <a href="contact.html">Contact</a> page for current openings.</p>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PedPay</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="plant.html">Register Plantation</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright"><p>Copyright © 2025 PedPay, Inc. All rights reserved.</p></div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -124,6 +124,16 @@
             width: 100%;
         }
         
+        .btn:focus-visible, nav a:focus-visible, .logo:focus-visible,
+        input:focus-visible, .close-modal:focus-visible {
+            outline: 2px solid var(--primary-green);
+            outline-offset: 2px;
+        }
+        
+        .btn:focus-visible:not(:hover) {
+            outline: 2px solid var(--darker-green);
+        }
+        
         .header-buttons {
             display: flex;
             gap: 15px;
@@ -522,6 +532,65 @@
             border-color: var(--primary-green);
         }
         
+        .aadhaar-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 8px;
+        }
+        
+        .login-flow-step {
+            display: none;
+        }
+        
+        .login-flow-step.active {
+            display: block;
+        }
+        
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 24px;
+            color: var(--darker-green);
+            transition: var(--transition);
+        }
+        
+        .hamburger-btn:hover {
+            color: var(--primary-green);
+        }
+        
+        .hamburger-btn .fa-times {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-bars {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-times {
+            display: inline-block;
+        }
+        
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
         .chatbot-toggle {
             position: fixed;
             bottom: 30px;
@@ -693,8 +762,47 @@
                 gap: 15px;
             }
             
+            .hamburger-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                max-width: 85%;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                z-index: 1001;
+                transition: right 0.3s ease;
+                padding-top: 80px;
+            }
+            
+            nav.menu-open {
+                right: 0;
+            }
+            
             nav ul {
-                gap: 15px;
+                flex-direction: column;
+                gap: 0;
+                padding: 0 20px;
+            }
+            
+            nav ul li {
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 16px 0;
+            }
+            
+            .header-buttons {
+                margin-left: auto;
             }
             
             .chatbot-window {
@@ -713,12 +821,18 @@
                 </div>
                 <span class="logo-ped">Ped</span><span class="logo-pe">Pay</span>
             </a>
-            <nav>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="nav-overlay" id="navOverlay"></div>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#stats">Impact</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
                 </ul>
             </nav>
             <div class="header-buttons">
@@ -739,7 +853,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="cover_img.png" alt="Sustainable Environment">
+                <img src="cover_img.png" alt="Sustainable Environment" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80';this.alt='Sustainable forest environment';">
             </div>
         </div>
     </section>
@@ -802,6 +916,7 @@
             <div class="section-header">
                 <h2 style="color: white;">Our Global Impact</h2>
                 <p style="color: rgba(255,255,255,0.9);">Making a difference, one tree at a time</p>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 8px;">*Illustrative figures based on platform activity</p>
             </div>
             <div class="stats-grid">
                 <div class="stat-item">
@@ -872,28 +987,28 @@
                 <div class="footer-column">
                     <h3>PedPay</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about.html#mission">Our Mission</a></li>
+                        <li><a href="about.html#careers">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Platform</h3>
                     <ul>
-                        <li><a href="#">For NGOs</a></li>
-                        <li><a href="#">For Verifiers</a></li>
-                        <li><a href="#">For Companies</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="about.html#ngos">For NGOs</a></li>
+                        <li><a href="about.html#verifiers">For Verifiers</a></li>
+                        <li><a href="about.html#companies">For Companies</a></li>
+                        <li><a href="marketplace.html">Marketplace</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Resources</h3>
                     <ul>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Guides</a></li>
-                        <li><a href="#">Webinars</a></li>
+                        <li><a href="contact.html">Documentation</a></li>
+                        <li><a href="contact.html">Blog</a></li>
+                        <li><a href="plant.html">Register Plantation</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -915,32 +1030,35 @@
     <div class="login-modal" id="loginModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
-            <div id="loginForm">
-                <h2>Login to PedPay</h2>
+            <div id="aadhaarForm" class="login-flow-step active">
+                <h2><i class="fas fa-fingerprint" style="margin-right: 8px;"></i> Aadhaar Verification</h2>
+                <p class="aadhaar-hint">Enter your 12-digit Aadhaar number. OTP will be sent to your Aadhaar-linked mobile number.</p>
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" placeholder="Enter your name">
+                    <label for="aadhaar">Aadhaar Number</label>
+                    <input type="text" id="aadhaar" placeholder="XXXX XXXX XXXX" maxlength="14" inputmode="numeric" pattern="[0-9\s]*" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="tel" id="mobile" placeholder="Enter your mobile number">
+                    <label for="phone">Mobile Number</label>
+                    <input type="tel" id="phone" placeholder="10-digit mobile (e.g. 9876543210)" inputmode="numeric" pattern="[0-9\s]*" autocomplete="tel">
                 </div>
-                <button class="btn btn-primary" id="sendOtpBtn" style="width: 100%;">Send OTP</button>
+                <button class="btn btn-primary" id="sendAadhaarOtpBtn" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send OTP to Linked Mobile</button>
             </div>
-            <div id="otpForm" style="display: none;">
+            <div id="otpForm" class="login-flow-step">
                 <h2>Verify OTP</h2>
+                <p class="aadhaar-hint">Enter the 6-digit OTP sent to your Aadhaar-registered mobile number.</p>
                 <div class="form-group">
-                    <label for="otp">Enter OTP</label>
-                    <input type="text" id="otp" placeholder="Enter 6-digit OTP">
+                    <label for="otp">OTP</label>
+                    <input type="text" id="otp" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric" pattern="[0-9]*">
                 </div>
-                <button class="btn btn-primary" id="verifyOtpBtn" style="width: 100%;">Verify & Login</button>
+                <button class="btn btn-primary" id="verifyOtpBtn" style="width: 100%;"><i class="fas fa-check"></i> Verify & Login</button>
+                <button class="btn btn-outline" id="backToAadhaarBtn" style="width: 100%; margin-top: 10px;"><i class="fas fa-arrow-left"></i> Change Aadhaar</button>
             </div>
         </div>
     </div>
 
-    <div class="chatbot-toggle" id="chatbotToggle">
-        <i class="fas fa-comment"></i>
-    </div>
+    <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open PedBot chat assistant">
+        <i class="fas fa-comment" aria-hidden="true"></i>
+    </button>
 
     <div class="chatbot-window" id="chatbotWindow">
         <div class="chatbot-header">
@@ -958,70 +1076,174 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabaseClient.js"></script>
     <script>
-        const GEMINI_API_KEY = "AIzaSyCVWOKesnFFeMky6He30nRk65bVnJQ4XPA";
         
         document.addEventListener('DOMContentLoaded', function() {
             const loginBtn = document.getElementById('loginBtn');
             const loginModal = document.getElementById('loginModal');
             const closeModal = document.getElementById('closeModal');
-            const sendOtpBtn = document.getElementById('sendOtpBtn');
+            const sendAadhaarOtpBtn = document.getElementById('sendAadhaarOtpBtn');
             const verifyOtpBtn = document.getElementById('verifyOtpBtn');
-            const loginForm = document.getElementById('loginForm');
+            const backToAadhaarBtn = document.getElementById('backToAadhaarBtn');
+            const aadhaarForm = document.getElementById('aadhaarForm');
             const otpForm = document.getElementById('otpForm');
+            const aadhaarInput = document.getElementById('aadhaar');
+            const phoneInput = document.getElementById('phone');
+            const otpInput = document.getElementById('otp');
+            
+            function resetLoginModal() {
+                aadhaarForm.classList.add('active');
+                otpForm.classList.remove('active');
+                aadhaarInput.value = '';
+                phoneInput.value = '';
+                otpInput.value = '';
+            }
+            
+            function formatAadhaar(value) {
+                const digits = value.replace(/\D/g, '');
+                return digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+            }
+            
+            function validateAadhaar(value) {
+                const digits = value.replace(/\D/g, '');
+                return digits.length === 12 && /^\d{12}$/.test(digits);
+            }
+
+            function normalizeIndianPhone(value) {
+                const digits = value.replace(/\D/g, '');
+                if (digits.length === 10) return `+91${digits}`;
+                if (digits.length === 12 && digits.startsWith('91')) return `+${digits}`;
+                if (digits.startsWith('+') && digits.length >= 12) return value;
+                return null;
+            }
+            
+            aadhaarInput.addEventListener('input', function() {
+                this.value = formatAadhaar(this.value);
+            });
             
             loginBtn.addEventListener('click', function() {
                 loginModal.style.display = 'flex';
+                resetLoginModal();
             });
             
             closeModal.addEventListener('click', function() {
                 loginModal.style.display = 'none';
-                loginForm.style.display = 'block';
-                otpForm.style.display = 'none';
-                document.getElementById('name').value = '';
-                document.getElementById('mobile').value = '';
-                document.getElementById('otp').value = '';
+                resetLoginModal();
             });
             
-            sendOtpBtn.addEventListener('click', function() {
-                const name = document.getElementById('name').value;
-                const mobile = document.getElementById('mobile').value;
-                
-                if (name && mobile) {
-                    loginForm.style.display = 'none';
-                    otpForm.style.display = 'block';
-                    console.log(`OTP sent to ${mobile}`);
-                } else {
-                    alert('Please enter both name and mobile number');
+            sendAadhaarOtpBtn.addEventListener('click', async function() {
+                if (!validateAadhaar(aadhaarInput.value)) {
+                    alert('Please enter a valid 12-digit Aadhaar number');
+                    return;
                 }
+                const phoneE164 = normalizeIndianPhone(phoneInput.value || '');
+                if (!phoneE164) {
+                    alert('Please enter a valid 10-digit Indian mobile number');
+                    return;
+                }
+
+                // Try to send OTP via Supabase Phone Auth (requires SMS provider configured).
+                try {
+                    const sb = window.getSupabaseClient();
+                    const { error } = await sb.auth.signInWithOtp({ phone: phoneE164 });
+                    if (error) {
+                        console.warn('Supabase OTP send failed:', error.message);
+                    }
+                } catch (e) {
+                    console.warn('Supabase not configured:', e.message);
+                }
+
+                aadhaarForm.classList.remove('active');
+                otpForm.classList.add('active');
+                otpInput.focus();
             });
             
-            verifyOtpBtn.addEventListener('click', function() {
-                const otp = document.getElementById('otp').value;
+            backToAadhaarBtn.addEventListener('click', function() {
+                otpForm.classList.remove('active');
+                aadhaarForm.classList.add('active');
+                otpInput.value = '';
+            });
+            
+            verifyOtpBtn.addEventListener('click', async function() {
+                const otp = otpInput.value.replace(/\D/g, '');
                 
-                if (otp) {
-                    console.log('OTP verified successfully');
-                    alert('Login successful! Welcome to PedPay.');
+                if (otp.length === 6) {
+                    const aadhaar = aadhaarInput.value.replace(/\D/g, '');
+                    const phoneE164 = normalizeIndianPhone(phoneInput.value || '');
+
+                    try {
+                        const sb = window.getSupabaseClient();
+                        if (phoneE164) {
+                            const { data, error } = await sb.auth.verifyOtp({
+                                phone: phoneE164,
+                                token: otp,
+                                type: 'sms'
+                            });
+                            if (error) throw error;
+
+                            // Store Aadhaar + phone in profile (authenticated only).
+                            if (data?.user?.id) {
+                                await sb.from('profiles').upsert({
+                                    id: data.user.id,
+                                    aadhaar,
+                                    phone: phoneE164
+                                });
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('OTP verify/profile upsert failed (demo fallback):', e.message);
+                        // Demo fallback: still allow navigation to dashboard.
+                    }
+
                     loginModal.style.display = 'none';
-                    loginForm.style.display = 'block';
-                    otpForm.style.display = 'none';
-                    document.getElementById('name').value = '';
-                    document.getElementById('mobile').value = '';
-                    document.getElementById('otp').value = '';
+                    resetLoginModal();
+                    window.location.href = 'dashboard.html';
                 } else {
-                    alert('Please enter the OTP');
+                    alert('Please enter the 6-digit OTP');
                 }
             });
             
             window.addEventListener('click', function(event) {
                 if (event.target === loginModal) {
                     loginModal.style.display = 'none';
-                    loginForm.style.display = 'block';
-                    otpForm.style.display = 'none';
-                    document.getElementById('name').value = '';
-                    document.getElementById('mobile').value = '';
-                    document.getElementById('otp').value = '';
+                    resetLoginModal();
                 }
+            });
+            
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mainNav = document.getElementById('mainNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const navLinks = mainNav.querySelectorAll('a');
+            
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('menu-open');
+                mainNav.classList.remove('menu-open');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            function openMobileMenu() {
+                hamburgerBtn.classList.add('menu-open');
+                mainNav.classList.add('menu-open');
+                navOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            hamburgerBtn.addEventListener('click', function() {
+                if (mainNav.classList.contains('menu-open')) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+            
+            navOverlay.addEventListener('click', closeMobileMenu);
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
             });
             
             const chatbotToggle = document.getElementById('chatbotToggle');
@@ -1109,23 +1331,12 @@
             }
             
             async function callGeminiAPI(message) {
-                
+                const apiUrl = '/.netlify/functions/gemini-proxy';
                 try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            contents: [{
-                                parts: [{
-                                    text: `You are PedBot, an AI assistant for PedPay, a carbon credit registry platform. 
-                                    Our platform helps with plantation registration, carbon credit management, and environmental conservation. 
-                                    Please provide helpful, max 75 word responses related to carbon credits, plantations, sustainability, and our platform. Use line breaks for readability.
-                                    Current user question: ${message}`
-                                }]
-                            }]
-                        })
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message })
                     });
                     
                     const data = await response.json();
@@ -1149,4 +1360,3 @@
     </script>
 </body>
 </html>
-

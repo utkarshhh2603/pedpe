@@ -365,16 +365,97 @@
             font-size: 0.9rem;
         }
         
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 24px;
+            color: var(--darker-green);
+            transition: var(--transition);
+        }
+        
+        .hamburger-btn:hover {
+            color: var(--primary-green);
+        }
+        
+        .hamburger-btn .fa-times {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-bars {
+            display: none;
+        }
+        
+        .hamburger-btn.menu-open .fa-times {
+            display: inline-block;
+        }
+        
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        
         @media (max-width: 768px) {
             .header-container {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
                 gap: 15px;
             }
             
-            nav ul {
-                gap: 15px;
-                flex-wrap: wrap;
+            .hamburger-btn {
+                display: flex;
+                align-items: center;
                 justify-content: center;
+                margin-left: auto;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                max-width: 85%;
+                height: 100vh;
+                background: var(--white);
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                z-index: 1001;
+                transition: right 0.3s ease;
+                padding-top: 80px;
+            }
+            
+            nav.menu-open {
+                right: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                flex-wrap: nowrap;
+                padding: 0 20px;
+            }
+            
+            nav ul li {
+                border-bottom: 1px solid var(--light-gray);
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 16px 0;
             }
             
             .upload-container {
@@ -406,7 +487,12 @@
                 </div>
                 <span class="logo-ped">Ped</span><span class="logo-pe">Pay</span>
             </a>
-            <nav>
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="nav-overlay" id="navOverlay"></div>
+            <nav id="mainNav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="index.html#features">Features</a></li>
@@ -423,7 +509,25 @@
     <section class="plant-section">
         <div class="container">
             <h1 class="plant-title">Register Your Plantation</h1>
-            <p class="plant-subtitle">Upload photos of your plantation to register it on our platform and earn verified carbon credits</p>
+            <p class="plant-subtitle">Upload photos and provide plantation details to register on our platform and earn verified carbon credits</p>
+            
+            <form id="plantationForm" style="max-width: 600px; margin: 0 auto 40px; background: var(--white); padding: 30px; border-radius: 16px; box-shadow: var(--shadow); text-align: left;">
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="species" style="display: block; margin-bottom: 8px; font-weight: 500;">Species / Plant Type *</label>
+                    <input type="text" id="species" required placeholder="e.g. Bamboo, Mangrove, Neem" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px;">
+                    <span class="form-error" id="speciesError" style="color: #c62828; font-size: 0.85rem;"></span>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="location" style="display: block; margin-bottom: 8px; font-weight: 500;">Location (City, State, Country) *</label>
+                    <input type="text" id="location" required placeholder="e.g. Assam, India" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px;">
+                    <span class="form-error" id="locationError" style="color: #c62828; font-size: 0.85rem;"></span>
+                </div>
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="area" style="display: block; margin-bottom: 8px; font-weight: 500;">Area (hectares) *</label>
+                    <input type="number" id="area" required min="0.01" step="0.01" placeholder="e.g. 2.5" style="width: 100%; padding: 12px; border: 1px solid var(--light-gray); border-radius: 8px;">
+                    <span class="form-error" id="areaError" style="color: #c62828; font-size: 0.85rem;"></span>
+                </div>
+            </form>
             
             <div class="upload-container">
                 <div class="upload-box" id="uploadBox1">
@@ -451,14 +555,14 @@
                 </div>
             </div>
             
-            <button class="btn btn-primary upload-btn" id="uploadBtn"><i class="fas fa-cloud-upload-alt"></i> Register Plantation</button>
+            <button class="btn btn-primary upload-btn" id="uploadBtn" type="button"><i class="fas fa-cloud-upload-alt"></i> Register Plantation</button>
         </div>
     </section>
     
     <div class="verification-overlay" id="verificationOverlay">
         <div class="verification-content">
             <h2 class="verification-title">Verifying your plantation</h2>
-            <div class="loading-circle"></div>
+            <div class="loading-circle" role="status" aria-label="Loading"></div>
             <p>Please wait while we verify your plantation details...</p>
         </div>
         
@@ -476,10 +580,10 @@
                 <div class="footer-column">
                     <h3>PedPay</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Mission</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about.html#mission">Our Mission</a></li>
+                        <li><a href="about.html#careers">Careers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -516,6 +620,9 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="supabaseClient.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const uploadBoxes = [
@@ -554,21 +661,110 @@
             const verificationOverlay = document.getElementById('verificationOverlay');
             const successMessage = document.getElementById('successMessage');
             
-            uploadBtn.addEventListener('click', function() {
+            uploadBtn.addEventListener('click', async function() {
+                const species = document.getElementById('species').value.trim();
+                const location = document.getElementById('location').value.trim();
+                const area = document.getElementById('area').value;
                 const filesUploaded = uploadBoxes.some(item => item.input.files.length > 0);
                 
+                ['speciesError', 'locationError', 'areaError'].forEach(id => { document.getElementById(id).textContent = ''; });
+                let valid = true;
+                if (!species) { document.getElementById('speciesError').textContent = 'Species is required'; valid = false; }
+                if (!location) { document.getElementById('locationError').textContent = 'Location is required'; valid = false; }
+                if (!area || parseFloat(area) <= 0) { document.getElementById('areaError').textContent = 'Please enter a valid area (hectares)'; valid = false; }
                 if (!filesUploaded) {
                     alert('Please upload at least one photo of your plantation');
                     return;
                 }
+                if (!valid) return;
                 
                 verificationOverlay.style.display = 'flex';
-                
+
+                // Save to Supabase (requires login)
+                try {
+                    const sb = window.getSupabaseClient();
+                    const user = await window.getSupabaseUser();
+                    if (!user) {
+                        alert('Please login first to register a plantation.');
+                        window.location.href = 'index.html';
+                        return;
+                    }
+
+                    const { data: plantation, error: plantationErr } = await sb
+                        .from('plantations')
+                        .insert({
+                            user_id: user.id,
+                            species,
+                            location,
+                            area: parseFloat(area),
+                            status: 'pending'
+                        })
+                        .select()
+                        .single();
+
+                    if (plantationErr) throw plantationErr;
+
+                    // Upload photos to Storage + save URLs
+                    for (const item of uploadBoxes) {
+                        if (!item.input.files || item.input.files.length === 0) continue;
+                        const file = item.input.files[0];
+                        const safeName = (file.name || 'photo').replace(/[^a-zA-Z0-9.\-_]/g, '_');
+                        const path = `${user.id}/${plantation.id}/${Date.now()}-${safeName}`;
+
+                        const { error: upErr } = await sb
+                            .storage
+                            .from('plantation-photos')
+                            .upload(path, file, { upsert: false });
+
+                        if (upErr) {
+                            console.warn('Photo upload failed:', upErr.message);
+                            continue;
+                        }
+
+                        const { data: pub } = sb.storage.from('plantation-photos').getPublicUrl(path);
+                        const publicUrl = pub?.publicUrl;
+                        if (publicUrl) {
+                            await sb.from('plantation_photos').insert({
+                                plantation_id: plantation.id,
+                                url: publicUrl
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Supabase save failed (demo fallback):', e.message);
+                }
+
                 setTimeout(function() {
                     document.querySelector('.verification-content').style.display = 'none';
                     successMessage.style.display = 'block';
-                }, 3000);
+                }, 1500);
             });
+            
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const mainNav = document.getElementById('mainNav');
+            const navOverlay = document.getElementById('navOverlay');
+            const navLinks = mainNav.querySelectorAll('a');
+            
+            function closeMobileMenu() {
+                hamburgerBtn.classList.remove('menu-open');
+                mainNav.classList.remove('menu-open');
+                navOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            hamburgerBtn.addEventListener('click', function() {
+                if (mainNav.classList.contains('menu-open')) {
+                    closeMobileMenu();
+                } else {
+                    hamburgerBtn.classList.add('menu-open');
+                    mainNav.classList.add('menu-open');
+                    navOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
+            navOverlay.addEventListener('click', closeMobileMenu);
+            navLinks.forEach(link => link.addEventListener('click', closeMobileMenu));
         });
     </script>
 </body>
